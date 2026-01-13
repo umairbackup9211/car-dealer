@@ -1,14 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist } from "next/font/google"
+import { Open_Sans } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
+import LoadingScreen from "@/components/loading-screen"
 import "./globals.css"
 
-const geistSans = Geist({ subsets: ["latin"] })
+const openSans = Open_Sans({ subsets: ["latin"], weight: ["400", "600", "700"] })
 
 export const metadata: Metadata = {
-  title: "Remons - Used Car Dealership",
-  description: "Find your perfect used car at Remons. Professional car dealership with wide selection.",
+  title: "Car Junction LLC - Quality Used Cars & Trucks in Dallas, TX",
+  description:
+    "Find your perfect used car at Car Junction LLC. Professional car dealership in Dallas, TX with wide selection of quality vehicles at unbeatable prices.",
   generator: "v0.app",
   icons: {
     icon: [
@@ -36,7 +38,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.className} font-sans antialiased`}>
+      <body className={`${openSans.className} font-sans antialiased`}>
+        <LoadingScreen />
         {children}
         <Analytics />
       </body>

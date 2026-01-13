@@ -1,70 +1,73 @@
 import Header from "@/components/header"
 import Footer from "@/components/footer"
+import FloatingActions from "@/components/floating-actions"
 import Link from "next/link"
-import { Phone, Mail } from "lucide-react"
+import { Phone, Mail, MapPin } from "lucide-react"
 
 export default function AboutPage() {
   const team = [
     {
-      name: "John Doe",
-      position: "General Manager",
-      phone: "(888) 111-1111",
-      email: "test@dealercenter.com",
+      name: "Michael Rodriguez",
+      position: "Owner & General Manager",
+      phone: "(214) 215-6273",
+      email: "cjunctionllc@gmail.com",
+      initial: "M",
     },
     {
-      name: "Mike Doe",
-      position: "Sales Representative",
-      phone: "(888) 111-1111",
-      email: "test@dealercenter.com",
+      name: "Sarah Johnson",
+      position: "Sales Manager",
+      phone: "(214) 215-6273",
+      email: "cjunctionllc@gmail.com",
+      initial: "S",
     },
     {
-      name: "Michael Doe",
-      position: "Owner",
-      phone: "(888) 111-1111",
-      email: "test@dealercenter.com",
+      name: "David Thompson",
+      position: "Finance Specialist",
+      phone: "(214) 215-6273",
+      email: "cjunctionllc@gmail.com",
+      initial: "D",
     },
   ]
 
   return (
     <main className="min-h-screen bg-white">
       <Header />
+      <FloatingActions />
 
       {/* Page Header */}
-      <section className="bg-gradient-to-r from-black to-gray-900 text-white py-16 px-4 md:px-6">
+      <section className="bg-gradient-to-r from-black via-gray-900 to-black text-white py-16 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
-          <h1 className="text-5xl font-bold mb-4">About Us</h1>
-          <div className="flex items-center gap-2 text-lg">
-            <Link href="/" className="hover:text-red-600 transition-colors">
-              Home
-            </Link>
-            <span className="text-red-600">•</span>
-            <span>About Us</span>
-          </div>
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">About Us</h1>
+          <p className="text-gray-300 text-lg">Learn more about Car Junction LLC</p>
         </div>
       </section>
 
       {/* About Section */}
-      <section className="py-24 px-4 md:px-6">
+      <section className="py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-4xl font-bold text-black mb-6">About Cars & Trucks Dealership</h2>
+              <h2 className="text-4xl font-bold text-black mb-6">About Car Junction LLC</h2>
               <p className="text-gray-700 text-lg leading-relaxed mb-6">
-                Our Dealership is dedicated to providing you with the ultimate automobile buying experience. Our
-                Dealership is your #1 source for buying a quality pre-owned vehicle. We have extensive relationships in
-                the dealer community allowing us to purchase a wide variety of lease returns and new car trades at
-                exceptional values.
+                Car Junction LLC is your trusted partner for finding quality used cars and trucks at unbeatable prices
+                in Dallas, TX. We are dedicated to providing you with the ultimate automobile buying experience. Our
+                dealership is your #1 source for buying a quality pre-owned vehicle.
+              </p>
+              <p className="text-gray-700 text-lg leading-relaxed mb-6">
+                We have extensive relationships in the dealer community allowing us to purchase a wide variety of lease
+                returns and new car trades at exceptional values. This enables Car Junction LLC to pass along huge
+                savings on the highest quality vehicles of your choice.
               </p>
               <p className="text-gray-700 text-lg leading-relaxed">
-                This enables Our Dealership to pass along huge savings on the highest quality vehicles of your choice.
                 In addition, we offer a full array of financing options to meet your needs. Our team is committed to
-                making your car-buying experience smooth, transparent, and enjoyable.
+                making your car-buying experience smooth, transparent, and enjoyable. Visit us at our Dallas location
+                today!
               </p>
             </div>
             <div>
               <img
                 src="/images/img-home01-removebg-preview.png"
-                alt="Red car"
+                alt="Red sports car"
                 className="w-full h-auto drop-shadow-2xl"
               />
             </div>
@@ -73,7 +76,7 @@ export default function AboutPage() {
       </section>
 
       {/* Team Section */}
-      <section className="bg-gray-50 py-24 px-4 md:px-6">
+      <section className="bg-white py-24 px-4 md:px-6">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-black mb-4">Meet Our Team</h2>
@@ -84,32 +87,61 @@ export default function AboutPage() {
             {team.map((member, index) => (
               <div
                 key={index}
-                className="bg-white rounded-lg shadow-lg p-8 text-center hover:shadow-xl transition-shadow"
+                className="bg-gray-50 rounded-xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-300 card-hover"
               >
-                <div className="w-20 h-20 bg-gradient-to-br from-red-600 to-red-700 rounded-full mx-auto mb-4 flex items-center justify-center text-white text-2xl font-bold">
-                  {member.name.charAt(0)}
+                <div
+                  className="w-24 h-24 rounded-full mx-auto mb-6 flex items-center justify-center text-white text-3xl font-bold shadow-lg"
+                  style={{ backgroundColor: "#EC3827" }}
+                >
+                  {member.initial}
                 </div>
-                <h3 className="text-xl font-bold text-black mb-2">{member.name}</h3>
-                <p className="text-red-600 font-semibold mb-4">{member.position}</p>
+                <h3 className="text-2xl font-bold text-black mb-2">{member.name}</h3>
+                <p className="text-[#EC3827] font-semibold mb-6 text-lg">{member.position}</p>
 
-                <div className="space-y-3 text-left">
+                <div className="space-y-4 text-left">
                   <a
-                    href={`tel:${member.phone}`}
-                    className="flex items-center gap-3 text-gray-700 hover:text-red-600 transition-colors"
+                    href={`tel:${member.phone.replace(/[^0-9]/g, "")}`}
+                    className="flex items-center gap-3 text-gray-700 hover:text-[#EC3827] transition-colors"
                   >
-                    <Phone size={18} className="text-red-600" />
-                    <span>{member.phone}</span>
+                    <Phone size={20} className="text-[#EC3827]" />
+                    <span className="text-base">{member.phone}</span>
                   </a>
                   <a
                     href={`mailto:${member.email}`}
-                    className="flex items-center gap-3 text-gray-700 hover:text-red-600 transition-colors"
+                    className="flex items-center gap-3 text-gray-700 hover:text-[#EC3827] transition-colors"
                   >
-                    <Mail size={18} className="text-red-600" />
-                    <span className="break-all">{member.email}</span>
+                    <Mail size={20} className="text-[#EC3827]" />
+                    <span className="break-all text-base">{member.email}</span>
                   </a>
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Location Section */}
+      <section className="bg-gray-50 py-24 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 text-center">
+            <MapPin size={48} className="text-[#EC3827] mx-auto mb-6" />
+            <h2 className="text-4xl font-bold text-black mb-6">Visit Our Dealership</h2>
+            <p className="text-gray-700 text-xl mb-8 leading-relaxed">
+              2435 Glenda Lane Ste 4
+              <br />
+              Dallas, Texas 75229
+            </p>
+            <p className="text-gray-700 text-lg mb-8">
+              <span className="font-semibold">Business Hours:</span> Monday - Saturday, 9:00 AM - 6:00 PM
+            </p>
+            <Link href="/contact">
+              <button
+                className="text-white px-10 py-4 rounded-lg font-bold hover:opacity-90 transition-all text-lg btn-hover-lift"
+                style={{ backgroundColor: "#EC3827" }}
+              >
+                Contact Us Today
+              </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -122,7 +154,10 @@ export default function AboutPage() {
             Good Credit, Bad Credit, First Time Buyer? Our lenders work with all types of scores and situations.
           </p>
           <Link href="/apply">
-            <button className="bg-red-600 text-white px-10 py-4 rounded-lg font-semibold hover:bg-red-700 transition-colors text-lg">
+            <button
+              className="text-white px-10 py-4 rounded-lg font-bold hover:opacity-90 transition-all text-lg btn-hover-lift"
+              style={{ backgroundColor: "#EC3827" }}
+            >
               Apply Online
             </button>
           </Link>

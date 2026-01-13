@@ -1,14 +1,15 @@
 "use client"
 
 import type React from "react"
-
 import Header from "@/components/header"
 import Footer from "@/components/footer"
-import Link from "next/link"
-import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Linkedin } from "lucide-react"
+import FloatingActions from "@/components/floating-actions"
+import Captcha from "@/components/captcha"
+import { MapPin, Phone, Mail, Clock, Facebook, Twitter, Instagram, Youtube } from "lucide-react"
 import { useState } from "react"
 
 export default function ContactPage() {
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false)
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +25,10 @@ export default function ContactPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+    if (!isCaptchaValid) {
+      alert("Please complete the security check correctly.")
+      return
+    }
     console.log("Form submitted:", formData)
     setFormData({ name: "", email: "", phone: "", subject: "", message: "" })
   }
@@ -31,87 +36,93 @@ export default function ContactPage() {
   return (
     <main className="min-h-screen bg-white">
       <Header />
+      <FloatingActions />
 
       {/* Page Header */}
-      <section
-        className="bg-cover bg-center bg-no-repeat py-32 px-4 md:px-6 relative"
-        style={{ backgroundImage: "url(/images/white-car-highway-wind-turbines-background-eco-journey.jpg)" }}
-      >
-        <div className="absolute inset-0 bg-black/50"></div>
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h1 className="text-5xl font-bold text-white mb-4">Contact Us</h1>
-          <div className="flex items-center gap-2 text-lg text-white">
-            <Link href="/" className="hover:text-red-300 transition-colors">
-              Home
-            </Link>
-            <span className="text-red-600">•</span>
-            <span>Contact us</span>
-          </div>
+      <section className="bg-gradient-to-r from-black via-gray-900 to-black text-white py-16 px-4 md:px-6">
+        <div className="max-w-7xl mx-auto">
+          <h1 className="text-4xl md:text-5xl font-bold mb-3">Contact Us</h1>
+          <p className="text-gray-300 text-lg">Get in touch with Car Junction LLC</p>
         </div>
       </section>
 
       {/* Contact Section */}
-      <section className="py-24 px-4 md:px-6">
+      <section className="py-20 md:py-24 px-4 md:px-6 bg-gray-50">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16">
             {/* Left Column - Office Info */}
-            <div>
-              <h2 className="text-4xl font-bold text-black mb-8">Visit Our Office</h2>
+            <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-10">Visit Our Office</h2>
 
               <div className="space-y-8">
                 {/* Office Location */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <MapPin size={24} className="text-white" />
+                <div className="flex gap-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#EC3827" }}
+                  >
+                    <MapPin size={26} className="text-white" />
                   </div>
                   <div>
                     <h3 className="font-bold text-black text-lg mb-2">Office Location</h3>
-                    <p className="text-gray-700">2435 Glenda Ln Ste 4, Dallas, TX 75229</p>
+                    <p className="text-gray-700 leading-relaxed">
+                      2435 Glenda Lane Ste 4<br />
+                      Dallas, Texas 75229
+                    </p>
                   </div>
                 </div>
 
                 {/* Phone */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Phone size={24} className="text-white" />
+                <div className="flex gap-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#EC3827" }}
+                  >
+                    <Phone size={26} className="text-white" />
                   </div>
                   <div>
                     <h3 className="font-bold text-black text-lg mb-2">Phone Number</h3>
-                    <a href="tel:(888)111-1111" className="text-gray-700 hover:text-red-600 transition-colors">
-                      (888) 111-1111
+                    <a href="tel:2142156273" className="text-gray-700 hover:text-[#EC3827] transition-colors text-lg">
+                      (214) 215-6273
                     </a>
                   </div>
                 </div>
 
                 {/* Email */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Mail size={24} className="text-white" />
+                <div className="flex gap-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#EC3827" }}
+                  >
+                    <Mail size={26} className="text-white" />
                   </div>
                   <div>
                     <h3 className="font-bold text-black text-lg mb-2">Email Address</h3>
                     <a
-                      href="mailto:needhelp@company.com"
-                      className="text-gray-700 hover:text-red-600 transition-colors"
+                      href="mailto:cjunctionllc@gmail.com"
+                      className="text-gray-700 hover:text-[#EC3827] transition-colors break-all"
                     >
-                      needhelp@company.com
+                      cjunctionllc@gmail.com
                     </a>
                   </div>
                 </div>
 
-                {/* Open Time */}
-                <div className="flex gap-4">
-                  <div className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center flex-shrink-0">
-                    <Clock size={24} className="text-white" />
+                {/* Business Hours */}
+                <div className="flex gap-5">
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#EC3827" }}
+                  >
+                    <Clock size={26} className="text-white" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-black text-lg mb-2">Open Time</h3>
-                    <p className="text-gray-700 text-sm leading-relaxed">
-                      Mon-Wed: 8:00 AM - 6:00 PM
+                    <h3 className="font-bold text-black text-lg mb-2">Business Hours</h3>
+                    <p className="text-gray-700 leading-relaxed">
+                      Monday - Saturday
                       <br />
-                      Thu: Closed
+                      9:00 AM - 6:00 PM
                       <br />
-                      Fri-Sun: 8:00 AM - 6:00 PM
+                      Sunday: Closed
                     </p>
                   </div>
                 </div>
@@ -125,116 +136,126 @@ export default function ContactPage() {
                     href="https://facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-colors"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white hover:opacity-90 transition-all"
+                    style={{ backgroundColor: "#EC3827" }}
                     aria-label="Facebook"
                   >
-                    <Facebook size={20} />
+                    <Facebook size={22} />
                   </a>
                   <a
                     href="https://twitter.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-colors"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white hover:opacity-90 transition-all"
+                    style={{ backgroundColor: "#EC3827" }}
                     aria-label="Twitter"
                   >
-                    <Twitter size={20} />
+                    <Twitter size={22} />
                   </a>
                   <a
                     href="https://instagram.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-colors"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white hover:opacity-90 transition-all"
+                    style={{ backgroundColor: "#EC3827" }}
                     aria-label="Instagram"
                   >
-                    <Instagram size={20} />
+                    <Instagram size={22} />
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://youtube.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-red-600 rounded-full flex items-center justify-center text-white hover:bg-red-700 transition-colors"
-                    aria-label="LinkedIn"
+                    className="w-12 h-12 rounded-full flex items-center justify-center text-white hover:opacity-90 transition-all"
+                    style={{ backgroundColor: "#EC3827" }}
+                    aria-label="YouTube"
                   >
-                    <Linkedin size={20} />
+                    <Youtube size={22} />
                   </a>
                 </div>
               </div>
             </div>
 
             {/* Right Column - Contact Form */}
-            <div>
-              <h2 className="text-4xl font-bold text-black mb-8">Get in Touch</h2>
+            <div className="bg-white p-8 md:p-10 rounded-2xl shadow-lg">
+              <h2 className="text-3xl md:text-4xl font-bold text-black mb-10">Get in Touch</h2>
 
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label className="block text-sm font-semibold text-black mb-2">Your name</label>
+                  <label className="block text-base font-semibold text-black mb-2">Your Name *</label>
                   <input
                     type="text"
                     name="name"
                     value={formData.name}
                     onChange={handleInputChange}
-                    placeholder="Your name"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    placeholder="John Doe"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EC3827]"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-black mb-2">Your email</label>
+                  <label className="block text-base font-semibold text-black mb-2">Your Email *</label>
                   <input
                     type="email"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    placeholder="Your email"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    placeholder="john@example.com"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EC3827]"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-black mb-2">Phone</label>
+                  <label className="block text-base font-semibold text-black mb-2">Phone *</label>
                   <input
                     type="tel"
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    placeholder="+(234) 456 789 1234"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
-                  />
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold text-black mb-2">Subject</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleInputChange}
-                    placeholder="Message subject"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
+                    placeholder="(214) 215-6273"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EC3827]"
                     required
                   />
                 </div>
 
                 <div>
-                  <label className="block text-sm font-semibold text-black mb-2">Message</label>
+                  <label className="block text-base font-semibold text-black mb-2">Subject *</label>
+                  <input
+                    type="text"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleInputChange}
+                    placeholder="How can we help you?"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EC3827]"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-base font-semibold text-black mb-2">Message *</label>
                   <textarea
                     name="message"
                     value={formData.message}
                     onChange={handleInputChange}
                     placeholder="Your message here..."
                     rows={6}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent resize-none"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50 text-black placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#EC3827] resize-none"
                     required
                   ></textarea>
                 </div>
 
+                {/* Captcha */}
+                <Captcha onVerify={setIsCaptchaValid} />
+
                 <button
                   type="submit"
-                  className="w-full bg-red-600 text-white px-6 py-4 rounded-lg font-semibold hover:bg-red-700 transition-colors text-lg"
+                  disabled={!isCaptchaValid}
+                  className="w-full text-white px-6 py-4 rounded-lg font-bold hover:opacity-90 transition-colors text-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: "#EC3827" }}
                 >
-                  SUBMIT →
+                  SEND MESSAGE →
                 </button>
               </form>
             </div>
